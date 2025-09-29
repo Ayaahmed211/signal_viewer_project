@@ -1,6 +1,9 @@
 from dash import Dash, html, dcc, Input, Output
 import dash
 
+# Import the ECG page layout directly
+from pages.ecg_page import layout as ecg_layout
+
 app = Dash(__name__, use_pages=True, suppress_callback_exceptions=True)
 server = app.server  # for deployment
 
@@ -12,7 +15,6 @@ home_layout = html.Div(
             "Welcome to Signal Viewer",
             style={'color': '#03045E', 'fontSize': '64px', 'fontWeight': 'bold', 'marginBottom': '40px'}
         ),
-        # Updated description
         html.P(
             "Signal Viewer is a professional platform for analyzing a wide range of signals. "
             "It is divided into two main parts: \n"
@@ -27,14 +29,14 @@ home_layout = html.Div(
             style={'display': 'flex', 'justifyContent': 'center', 'gap': '30px'},
             children=[
                 dcc.Link(html.Button("ECG", style={
-                    'backgroundColor': '#023E8A', 'color': 'black', 'borderRadius': '25px',
+                    'backgroundColor': '#023E8A', 'color': 'white', 'borderRadius': '25px',  # Changed color to white for better visibility
                     'padding': '15px 40px', 'fontSize': '18px', 'border': 'none', 'cursor': 'pointer'
                 }), href='/ecg'),
-                html.Button("EEG", style={'backgroundColor': '#023E8A', 'color': 'black', 'borderRadius': '25px',
+                html.Button("EEG", style={'backgroundColor': '#023E8A', 'color': 'white', 'borderRadius': '25px',
                                            'padding': '15px 40px', 'fontSize': '18px', 'border': 'none', 'cursor': 'pointer'}),
-                html.Button("Doppler Shift", style={'backgroundColor': '#023E8A', 'color': 'black', 'borderRadius': '25px',
+                html.Button("Doppler Shift", style={'backgroundColor': '#023E8A', 'color': 'white', 'borderRadius': '25px',
                                                     'padding': '15px 40px', 'fontSize': '18px', 'border': 'none', 'cursor': 'pointer'}),
-                html.Button("Radar", style={'backgroundColor': '#023E8A', 'color': 'black', 'borderRadius': '25px',
+                html.Button("Radar", style={'backgroundColor': '#023E8A', 'color': 'white', 'borderRadius': '25px',
                                             'padding': '15px 40px', 'fontSize': '18px', 'border': 'none', 'cursor': 'pointer'}),
             ]
         )
@@ -53,8 +55,7 @@ app.layout = html.Div([
 )
 def display_page(pathname):
     if pathname == '/ecg':
-        import pages.ecg_page  # import here to avoid circular import
-        return pages.ecg_page.layout
+        return ecg_layout
     else:
         return home_layout
 
